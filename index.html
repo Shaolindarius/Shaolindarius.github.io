@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cronômetro e Contadores</title>
+<script type="text/javascript">
+var cronometro;
+var segundos = 180;
+var mana = 1;
+var vida = 30;
+var manaLimit = 1; // Initial mana limit per round
+
+function startTimer() {
+  cronometro = setInterval(function() {
+    if (segundos > 0) {
+      segundos--;
+      document.getElementById("cronometro").innerHTML = segundos;
+    } else {
+      clearInterval(cronometro);
+      alert("Tempo esgotado!");
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(cronometro);
+}
+
+function resetTimer() {
+  clearInterval(cronometro);
+  segundos = 180;
+  document.getElementById("cronometro").innerHTML = segundos;
+}
+
+function increaseMana() {
+  if (mana < manaLimit) {
+    mana++;
+    document.getElementById("mana").innerHTML = mana;
+  }
+}
+
+function decreaseMana() {
+  if (mana > 0) {
+    mana--;
+    document.getElementById("mana").innerHTML = mana;
+  }
+}
+
+function decreaseLife() {
+  vida--;
+  document.getElementById("vida").innerHTML = vida;
+
+  if (vida <= 0) {
+    resetLife();
+  }
+}
+
+function increaseLife() {
+  vida++;
+  document.getElementById("vida").innerHTML = vida;
+}
+
+function resetLife() {
+  vida = 30;
+  document.getElementById("vida").innerHTML = vida;
+}
+
+function resetMana() {
+  mana = 1;
+  document.getElementById("mana").innerHTML = mana;
+}
+
+function resetRound() {
+  clearInterval(cronometro);
+  segundos = 180;
+  document.getElementById("cronometro").innerHTML = segundos;
+  
+  // Increase mana limit per round
+  manaLimit++;
+}
+</script>
+</head>
+<body>
+<h1>Cronômetro e Contadores</h1>
+
+<h2>Cronômetro: <span id="cronometro">60</span></h2>
+<button onclick="startTimer()">Iniciar</button>
+<button onclick="pauseTimer()">Pausar</button>
+<button onclick="resetTimer()">Reiniciar</button>
+
+<h2>Mana: <span id="mana">1</span></h2>
+<button onclick="increaseMana()">Aumentar Mana</button>
+<button onclick="decreaseMana()">Diminuir Mana</button>
+<button onclick="resetMana()">Reiniciar Mana</button>
+
+<h2>Vida: <span id="vida">30</span></h2>
+<button onclick="decreaseLife()">Diminuir Vida</button>
+<button onclick="increaseLife()">Aumentar Vida</button>
+<button onclick="resetLife()">Reiniciar Vida</button>
+<button onclick="resetRound()">Passar Rodada</button>
+</body>
+</html>
